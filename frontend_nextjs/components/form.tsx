@@ -8,8 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { FormDataSchema } from '@/lib/schema'
 
-type Inputs = z.infer<typeof FormDataSchema>
 
+type Inputs = z.infer<typeof FormDataSchema>
 
 const stages = [
     { 
@@ -84,21 +84,21 @@ export default function Form() {
                         <ol role='list' className='space-y-4 md:flex md:space-x-8 md:space-y-0'>
                         {stages.map((stage, index) => (
                             <li key={stage.name} className='md:flex-1'>
-                            {currentStage > index ? (
+                            {currentStage > index ? ( //previous highlighted nav items 
                                 <div className='group flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'>
                                     <span className='text-sm font-medium text-sky-600 transition-colors '>
                                         {stage.id}
                                     </span>
                                     <span className='text-sm font-medium'>{stage.name}</span>
                                 </div>
-                            ) : currentStage === index ? (
+                            ) : currentStage === index ? ( //current highlighted nav items 
                                 <div className='flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'>
                                     <span className='text-sm font-medium text-sky-600'>
                                         {stage.id}
                                     </span>
                                     <span className='text-sm font-medium'>{stage.name}</span>
                                 </div>
-                            ) : (
+                            ) : ( //future greyed out nav items 
                                 <div className='group flex w-full flex-col border-l-4 border-gray-200 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'>
                                     <span className='text-sm font-medium text-gray-500 transition-colors'>
                                         {stage.id}
@@ -205,7 +205,7 @@ export default function Form() {
                                     type='string'
                                     {...register('nationality')}
                                     autoComplete='nationality'
-                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                                    className='p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
                                 {errors.nationality?.message && (
                                     <p className='mt-2 text-sm text-red-400'>
@@ -279,55 +279,33 @@ export default function Form() {
                     Your choices contribute to customizing travel arrangements for your comfort.
                     </p>
                     <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
-                        <div className='sm:col-span-3'>
-                            <label
-                                htmlFor='depDate'
-                                className='block text-sm font-medium leading-6 text-gray-900'
-                            >
-                                Depature Date
-                            </label>
-                            <div className='mt-2'>
-                                <input
-                                    type='text'
-                                    id='depDate'
-                                    {...register('depDate')}
-                                    autoComplete='date'
-                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
-                                />
+                        <div className="flex items-center sm:col-span-5">
+                            <div className="relative">
+                                <input id="start" type="date" {...register('depDate')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
+                                </input>
                                 {errors.depDate?.message && (
                                     <p className='mt-2 text-sm text-red-400'>
                                     {errors.depDate.message}
                                     </p>
                                 )}
                             </div>
-                        </div>
-
-                        <div className='sm:col-span-3'>
-                            <label
-                                htmlFor='retDate'
-                                className='block text-sm font-medium leading-6 text-gray-900'
-                            >
-                                Return Date
-                            </label>
-                            <div className='mt-2'>
-                                <input
-                                    type='text'
-                                    id='retDate'
-                                    {...register('retDate')}
-                                    autoComplete='date'
-                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
-                                />
+                            
+                            <span className="relative mx-4">Depature Date to Return Date</span>
+                            <div className="relative">
+                                <input id="end" type="date" {...register('retDate')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+                                </input>
                                 {errors.retDate?.message && (
                                     <p className='mt-2 text-sm text-red-400'>
                                     {errors.retDate.message}
                                     </p>
-                                )}
+                                )}    
                             </div>
                         </div>
                         
-                        <div className='sm:col-span-3'>
+                        
+                        <div className='sm:col-span-5'>
                             <label htmlFor='accPre' className='block date-sm font-medidum leading-3 text-grey-900'>
-                                Accommodation Preference
+                                Accommodation Preference 
                             </label>
                             <div className='mt-2'>
                                 <input 
@@ -335,7 +313,8 @@ export default function Form() {
                                     type='string'
                                     {...register('accPre')}
                                     autoComplete='space-hotel'
-                                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                                    placeholder='Enter either [Space Hotel] or [Martian Base]'
+                                    className='p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
                                 {errors.accPre?.message && (
                                     <p className='mt-2 text-sm text-red-400'>
@@ -345,16 +324,16 @@ export default function Form() {
                             </div>
                         </div>
                         
-                        <div className='sm:col-span-3'>
+                        <div className='sm:col-span-5'>
                             <label htmlFor='specialReq' className='block date-sm font-medidum leading-3 text-grey-900'>
                                 Special Requests or Preferences
                             </label>
                             <div className='mt-2'>
-                                <input 
+                                <textarea 
                                     id='specialReq'
-                                    type='string'
                                     {...register('specialReq')}
-                                    autoComplete='specialReq'
+                                    rows={4}
+                                    placeholder="Write your requests here..."
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
                                 {errors.specialReq?.message && (
@@ -532,6 +511,7 @@ export default function Form() {
                     </button>
                 </div>
             </div>
+            <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
         </section>
     )
 }

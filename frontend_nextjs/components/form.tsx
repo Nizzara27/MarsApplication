@@ -363,20 +363,20 @@ export default function Form() {
                     </p>
                     <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
                         <div className='sm:col-span-2'>
-                            <label htmlFor='medConditions' className='block date-sm font-medidum leading-3 text-grey-900'>
+                            <label htmlFor='healthDec' className='block date-sm font-medidum leading-3 text-grey-900'>
                                 Health Declaration
                             </label>
                             <div className='mt-2'>
                                 <input 
-                                    id='medConditions'
-                                    type='string'
-                                    {...register('medConditions')}
+                                    id='healthDec'
+                                    type='text'
+                                    {...register('healthDec')}
                                     autoComplete='no'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
-                                {errors.medConditions?.message && (
+                                {errors.healthDec?.message && (
                                     <p className='mt-2 text-sm text-red-400'>
-                                    {errors.medConditions.message}
+                                    {errors.healthDec.message}
                                     </p>
                                 )}
                             </div>
@@ -427,19 +427,16 @@ export default function Form() {
                                 )}
                             </div>
                         </div>
-                        <div className='sm:col-span-6'>
-                            <label
-                                htmlFor='medConditions'
-                                className='block text-sm font-medium leading-6 text-gray-900'
-                            >
-                                Medical Conditions?
+                        <div className='sm:col-span-5'>
+                            <label htmlFor='medConditions' className='block date-sm font-medidum leading-3 text-grey-900'>
+                                Special Requests or Preferences
                             </label>
                             <div className='mt-2'>
-                                <input
-                                    type='text'
+                                <textarea 
                                     id='medConditions'
                                     {...register('medConditions')}
-                                    autoComplete='medConditions'
+                                    rows={4}
+                                    placeholder="Write your medical conditions here..."
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
                                 {errors.medConditions?.message && (
@@ -454,14 +451,18 @@ export default function Form() {
                 )}
                 {/* Stage 4 */}
                 {currentStage === 3 && (
-                <>
+                <motion.div
+                    initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
                     <h2 className='text-base font-semibold leading-7 text-gray-900'>
                     Complete
                     </h2>
                     <p className='mt-1 text-sm leading-6 text-gray-600'>
                     Thank you for your submission.
                     </p>
-                </>
+                </motion.div>
                 )}
             </form>
             {/* Navigation Buttons*/}

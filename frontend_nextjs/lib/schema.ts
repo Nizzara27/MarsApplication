@@ -32,8 +32,14 @@ export const FormDataSchema = z.object({
   specialReq: z.string().optional(),
 
   //Health and Safety
-  healthDec: z.string().min(3, "Must be yes").regex(new RegExp('Yes')),
-  emergencyEmail: z.string().min(1, 'Emergency Email is required').email('Invalid email address'),
+  healthDec: z
+  .string()
+  .regex(new RegExp("Yes"))
+  .min(3, "Must be yes"),
+  emergencyEmail: z
+  .string()
+  .min(1, 'Emergency Email is required')
+  .email('Invalid email address'),
   emergencyPhoneNumber: z
   .string()
   .trim()

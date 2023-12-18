@@ -387,7 +387,7 @@ export default function Form() {
                                 htmlFor='emergencyEmail'
                                 className='block text-sm font-medium leading-6 text-gray-900'
                             >
-                                Emergency person's email address
+                                Emergency person&apos;s email address
                             </label>
                             <div className='mt-2'>
                                 <input
@@ -512,7 +512,6 @@ export default function Form() {
                     </button>
                 </div>
             </div>
-            <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
         </section>
     )
 }

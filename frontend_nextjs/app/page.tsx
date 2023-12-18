@@ -1,5 +1,5 @@
-import Header from '@/components/header'
-import Form from '@/components/form'
+import Header from "@/components/header";
+import Form from "@/components/form";
 
 export default function Home() {
   return (
@@ -9,5 +9,5 @@ export default function Home() {
         <Form />
       </div>
     </main>
-  )
+  );
 }

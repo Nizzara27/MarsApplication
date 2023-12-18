@@ -1,3 +1,16 @@
+
+## Deployment
+
+To deploy this project run
+
+```bash
+  npm run deploy
+```
+
+To access Vercel webpage, use the link
+
+[MarsApplication](mars-application-nileshana-abeysinghes-projects.vercel.app)
+
 # Mars Application
 
 A simple multi-stage application form for users interested in visiting Mars. Uses Nextjs, Tailwind CSS, Zod, Reacthooks, Jest, and Vercel.
@@ -20,3 +33,29 @@ Ensuring a secure Journey: We prioritize your health and safety!
 This section is dedicated to understanding your medical history and health conditions, allowing us to tailor our measures and address any potential risks for a secure and successful expedition.
 
 Fields: Health Declaration, Emergency Contact Information (Email, Phone Number), Medical Conditions
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Nizzara27/MarsApplication
+```
+
+Go to the project directory
+
+```bash
+  cd .\frontend_nextjs\
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+

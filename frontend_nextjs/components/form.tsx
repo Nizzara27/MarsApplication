@@ -1,39 +1,39 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion } from 'framer-motion' 
-import { z } from 'zod'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { z } from "zod";
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { FormDataSchema } from '@/lib/schema'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { FormDataSchema } from "@/lib/schema";
 
 
-type Inputs = z.infer<typeof FormDataSchema>
+type Inputs = z.infer<typeof FormDataSchema>;
 
 const stages = [
     { 
-        id: 'Stage 1', 
-        name: 'Personal Information',
-        fields: ['firstName','lastName','birthdate','nationality','email','phoneNumber']
+        id: "Stage 1", 
+        name: "Personal Information",
+        fields: ["firstName","lastName","birthdate","nationality","email","phoneNumber"]
     },
     { 
-        id: 'Stage 2', 
-        name: 'Travel Preferences',
-        fields: ['depDate','retDate','accPre','specialReq']
+        id: "Stage 2", 
+        name: "Travel Preferences",
+        fields: ["depDate","retDate","accPre","specialReq"]
     },
     { 
-        id: 'Stage 3', 
-        name: 'Health and Safety',
-        fields: ['healthDec','emergencyEmail', 'emergencyPhoneNumber','medConditions']
+        id: "Stage 3", 
+        name: "Health and Safety",
+        fields: ["healthDec","emergencyEmail", "emergencyPhoneNumber","medConditions"]
     },
-    { id: 'Stage 4', name: 'Completion'},   
-]
+    { id: "Stage 4", name: "Completion"},   
+];
 
 export default function Form() {
-    const [previousStage, setPreviousStage] = useState(0)
-    const [currentStage, setCurrentStage] = useState(0)
-    const delta = currentStage - previousStage
+    const [previousStage, setPreviousStage] = useState(0);
+    const [currentStage, setCurrentStage] = useState(0);
+    const delta = currentStage - previousStage;
 
     const {
         register,
@@ -44,36 +44,36 @@ export default function Form() {
         formState: { errors }
     } = useForm<Inputs>({
         resolver: zodResolver(FormDataSchema)
-    })
+    });
 
     const processForm: SubmitHandler<Inputs> = data => {
-        console.log(data)
-        reset()
-    }
+        console.log(data);
+        reset();
+    };
 
     type FieldName = keyof Inputs
 
     const next = async () => {
-        const fields = stages[currentStage].fields
-        const output = await trigger(fields as FieldName[], { shouldFocus: true })
+        const fields = stages[currentStage].fields;
+        const output = await trigger(fields as FieldName[], { shouldFocus: true });
 
-        if (!output) return
+        if (!output) return;
 
         if (currentStage < stages.length - 1) {
             if (currentStage === stages.length - 2) {
-            await handleSubmit(processForm)()
+            await handleSubmit(processForm)();
             }
-            setPreviousStage(currentStage)
-            setCurrentStage(stage => stage + 1)
+            setPreviousStage(currentStage);
+            setCurrentStage(stage => stage + 1);
         }
-    }
+    };
 
     const prev = () => {
     if (currentStage > 0) {
-        setPreviousStage(currentStage)
-        setCurrentStage(stage => stage - 1)
+        setPreviousStage(currentStage);
+        setCurrentStage(stage => stage - 1);
     }
-    }
+    };
 
     return (
         <section className='absolute inset-0 flex flex-col justify-between p-24'>
@@ -117,9 +117,9 @@ export default function Form() {
                 {/* Stage 1 */}
                 {currentStage === 0 && (
                 <motion.div
-                    initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+                    initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                     <h2 className='text-base font-semibold leading-7 text-gray-900'>
                     Personal Information
@@ -140,7 +140,7 @@ export default function Form() {
                                 <input
                                     type='text'
                                     id='firstName'
-                                    {...register('firstName')}
+                                    {...register("firstName")}
                                     autoComplete='given-name'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -163,7 +163,7 @@ export default function Form() {
                                 <input
                                     type='text'
                                     id='lastName'
-                                    {...register('lastName')}
+                                    {...register("lastName")}
                                     autoComplete='family-name'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -183,7 +183,7 @@ export default function Form() {
                                 <input 
                                     id='birthdate'
                                     type='date'
-                                    {...register('birthdate')}
+                                    {...register("birthdate")}
                                     autoComplete='date'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -203,7 +203,7 @@ export default function Form() {
                                 <input 
                                     id='nationality'
                                     type='string'
-                                    {...register('nationality')}
+                                    {...register("nationality")}
                                     autoComplete='nationality'
                                     className='p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -226,7 +226,7 @@ export default function Form() {
                                 <input
                                     id='email'
                                     type='email'
-                                    {...register('email')}
+                                    {...register("email")}
                                     autoComplete='email'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -249,7 +249,7 @@ export default function Form() {
                                 <input
                                     type='text'
                                     id='phoneNumber'
-                                    {...register('phoneNumber')}
+                                    {...register("phoneNumber")}
                                     autoComplete='given-name'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -266,9 +266,9 @@ export default function Form() {
                 {/* Stage 2 */}
                 {currentStage === 1 && (
                 <motion.div
-                    initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+                    initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                     <h2 className='text-base font-semibold leading-7 text-gray-900'>
                     Travel Preferences
@@ -281,7 +281,7 @@ export default function Form() {
                     <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
                         <div className="flex items-center sm:col-span-5">
                             <div className="relative">
-                                <input id="start" type="date" {...register('depDate')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
+                                <input id="start" type="date" {...register("depDate")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
                                 </input>
                                 {errors.depDate?.message && (
                                     <p className='mt-2 text-sm text-red-400'>
@@ -292,7 +292,7 @@ export default function Form() {
                             
                             <span className="relative mx-4">Depature Date to Return Date</span>
                             <div className="relative">
-                                <input id="end" type="date" {...register('retDate')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+                                <input id="end" type="date" {...register("retDate")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
                                 </input>
                                 {errors.retDate?.message && (
                                     <p className='mt-2 text-sm text-red-400'>
@@ -311,7 +311,7 @@ export default function Form() {
                                 <input 
                                     id='accPre'
                                     type='string'
-                                    {...register('accPre')}
+                                    {...register("accPre")}
                                     autoComplete='space-hotel'
                                     placeholder='Enter either [Space Hotel] or [Martian Base]'
                                     className='p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
@@ -331,7 +331,7 @@ export default function Form() {
                             <div className='mt-2'>
                                 <textarea 
                                     id='specialReq'
-                                    {...register('specialReq')}
+                                    {...register("specialReq")}
                                     rows={4}
                                     placeholder="Write your requests here..."
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
@@ -349,9 +349,9 @@ export default function Form() {
                 {/* Stage 3 */}
                 {currentStage === 2 && (
                 <motion.div
-                    initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+                    initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                     <h2 className='text-base font-semibold leading-7 text-gray-900'>
                     Health and Safety
@@ -370,7 +370,7 @@ export default function Form() {
                                 <input 
                                     id='healthDec'
                                     type='text'
-                                    {...register('healthDec')}
+                                    {...register("healthDec")}
                                     autoComplete='no'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -393,7 +393,7 @@ export default function Form() {
                                 <input
                                     id='emergencyEmail'
                                     type='email'
-                                    {...register('emergencyEmail')}
+                                    {...register("emergencyEmail")}
                                     autoComplete='email'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -416,7 +416,7 @@ export default function Form() {
                                 <input
                                     type='text'
                                     id='emergencyPhoneNumber'
-                                    {...register('emergencyPhoneNumber')}
+                                    {...register("emergencyPhoneNumber")}
                                     autoComplete='phonenumber'
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                                 />
@@ -434,7 +434,7 @@ export default function Form() {
                             <div className='mt-2'>
                                 <textarea 
                                     id='medConditions'
-                                    {...register('medConditions')}
+                                    {...register("medConditions")}
                                     rows={4}
                                     placeholder="Write your medical conditions here..."
                                     className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
@@ -452,9 +452,9 @@ export default function Form() {
                 {/* Stage 4 */}
                 {currentStage === 3 && (
                 <motion.div
-                    initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+                    initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
                     <h2 className='text-base font-semibold leading-7 text-gray-900'>
                     Complete
@@ -513,5 +513,5 @@ export default function Form() {
                 </div>
             </div>
         </section>
-    )
+    );
 }

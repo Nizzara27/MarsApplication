@@ -34,7 +34,7 @@ export const FormDataSchema = z.object({
   //Health and Safety
   healthDec: z
   .string()
-  .regex(new RegExp("Yes"))
+  .regex(new RegExp("^yes$\|^Yes$"))
   .min(3, "Must be yes"),
   emergencyEmail: z
   .string()

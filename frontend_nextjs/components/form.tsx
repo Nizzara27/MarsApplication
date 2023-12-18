@@ -38,17 +38,16 @@ export default function Form() {
     const {
         register,
         handleSubmit,
-        watch,
-        reset,
         trigger,
         formState: { errors }
     } = useForm<Inputs>({
         resolver: zodResolver(FormDataSchema)
     });
 
-    const processForm: SubmitHandler<Inputs> = data => {
+    const processForm: SubmitHandler<Inputs> = data => { //submission 
         console.log(data);
-        reset();
+        alert("Check console for the data");
+        //reset();
     };
 
     type FieldName = keyof Inputs
@@ -462,6 +461,7 @@ export default function Form() {
                     <p className='mt-1 text-sm leading-6 text-gray-600'>
                     Thank you for your submission.
                     </p>
+                    
                 </motion.div>
                 )}
             </form>
